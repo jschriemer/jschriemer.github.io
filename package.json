@@ -15,8 +15,6 @@
     "@types/react-dom": "^17.0.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-hook-form": "^7.20.2",
-    "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.2",
     "react-spring": "^8.0.27",
     "tslint": "^6.1.3",

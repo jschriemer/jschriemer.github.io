@@ -1,12 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import Home from './pages/Home';
-import Router from './utils/Router'
 import reportWebVitals from './reportWebVitals';
+import LandingPage from './pages/LandingPage';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router />
+    <LandingPage />
   </React.StrictMode>,
   document.getElementById('root')
 );
