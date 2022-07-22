@@ -2,21 +2,30 @@
 import styled from "@emotion/styled";
 import React, { useState } from "react";
 
+
+export interface Themes {
+  colors: {
+    primary: string;
+    background: string;
+    secondaryBackground: string;
+  };
+}
+
 const mobile = `@media (max-width: 500px)`;
 
-const AboutFooter = styled.footer`
-  display: flex;
-  justify-content: space-around;
-  background-color: pink;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-
-  ${mobile} {
-    transform: rotate(-90deg);
-  }
-}
-`;
+const AboutFooter = styled.footer<Themes>(
+  {
+  display: "flex",
+  justifyContent: "space-around",
+  position: "absolute",
+  bottom: 0,
+  width: "100%"
+  },
+  (props) => ({
+    color: props.colors.primary,
+    backgroundColor: props.colors.background,
+  }),
+)
 
 const FooterEmail = styled.div`
   color: grey;
@@ -47,10 +56,11 @@ const GithubContainer = styled.svg`
 }
 `;
 
-export function Footer() {
+export function Footer(props: Themes) {
+
 
   return (
-    <AboutFooter>
+    <AboutFooter colors={props.colors}>
       <GithubContainer></GithubContainer>
       <FooterEmail>
         <p>jschriem@gmail.com</p>
