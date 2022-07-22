@@ -1,25 +1,38 @@
 /** @jsxImportSource @emotion/react */
 import styled from "@emotion/styled";
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { Footer } from "../components/Footer";
 import { Parallax, ParallaxLayer, IParallax } from "@react-spring/parallax";
 import flowerBackground from "../images/flowers.png";
+import { ThemeProvider, useTheme } from "@emotion/react";
+import { darkTheme, lightTheme } from "../theme";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const tablet = `@media (max-width: 800px)`;
 const mobile = `@media (max-width: 500px)`;
 
-const HomeContainer = styled.div`
-  max-width: 800px;
-  ${mobile} {
-    max-width: 500px;
+const theme = {
+  colors: {
+    primary: 'hotpink'
   }
-`;
+}
+
+const HomeContainer = styled.div``;
 
 function LandingPage() {
   const parallax = useRef<IParallax>(null!);
+  const currentTheme = useTheme()
+  console.log(currentTheme)
+
+  const [isMounted, setIsMounted] = React.useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   return (
-    <div style={{ display: "flex" }}>
+    <ThemeProvider theme={theme}>
+    <div style={{ display: "flex", width: "100%", marginLeft: "-8px" }}>
       {!mobile ? (
         <HomeContainer>
           <div style={{ display: "flex", paddingBottom: "20px" }}>
@@ -32,7 +45,7 @@ function LandingPage() {
             <ParallaxLayer
               offset={2}
               speed={1}
-              style={{ backgroundColor: "#5E8062" }}
+              style={{ backgroundColor: "#5E8062", width: "100%" }}
             >
               <Footer />
               <p>yessir</p>
@@ -40,7 +53,7 @@ function LandingPage() {
             <ParallaxLayer
               offset={1}
               speed={1}
-              style={{ backgroundColor: "#805E73" }}
+              style={{ backgroundColor: currentTheme.colors.primary }}
             >
               <div style={{ display: "flex", paddingBottom: "20px" }}>
                 <p>hello</p>
@@ -65,6 +78,7 @@ function LandingPage() {
         </div>
       )}
     </div>
+    </ThemeProvider>
   );
 }
 

@@ -7,6 +7,10 @@ const mobile = `@media (max-width: 500px)`;
 const AboutFooter = styled.footer`
   display: flex;
   justify-content: space-around;
+  background-color: pink;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 
   ${mobile} {
     transform: rotate(-90deg);

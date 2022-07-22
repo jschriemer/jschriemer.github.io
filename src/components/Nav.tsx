@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import React from "react";
 import "../pages/home.scss";
+import ThemeToggleContext from '../ThemeToggleContext';
 
 const AboutButton = styled.button`
   background-color: transparent;
@@ -33,6 +34,26 @@ const HomeButton = styled.button`
   text-transform: uppercase;
   color: #aeff00;
 `;
+
+const Navbar = (props: { className: string; title: string; }) => {
+  const {
+    isDarkTheme,
+    toggleTheme
+  } = React.useContext(ThemeToggleContext);
+  return (
+    <nav className={props.className}>
+      <div className={'container'}>
+        <h1>
+          {props.title}
+        </h1>
+        <button onClick={toggleTheme}>
+          Switch to {isDarkTheme ? 'Light': 'Dark'} mode
+        </button>
+      </div>
+    </nav>
+  );
+};
+export default Navbar;
 
 function Nav() {
   // tslint:disable-next-line: no-console
