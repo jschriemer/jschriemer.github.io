@@ -1,10 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import styled from "@emotion/styled";
+import { css, keyframes, ThemeProvider } from "@emotion/react";
 import React, { useRef, useEffect, useState } from "react";
 import { Footer } from "../components/Footer";
 import { Parallax, ParallaxLayer, IParallax } from "@react-spring/parallax";
 import flowerBackground from "../images/flowers.png";
-import { ThemeProvider } from "@emotion/react";
+import Scroll_down from "../images/scroll_down.png";
+//import { ReactComponent as ScrollDownFlower } from "../images/scroll_down_flower.svg";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const tablet = `@media (max-width: 800px)`;
@@ -37,6 +39,47 @@ const darkTheme = {
 const PrimaryText = styled.div<Themes>(
   {
     padding: 20,
+  },
+  (props) => ({
+    color: props.colors.primary,
+    /*backgroundColor: props.colors.background,*/
+  })
+);
+
+const ScollDownContainer = styled.div<Themes>(
+  {
+    padding: 20,
+  },
+  (props) => ({
+    color: props.colors.primary,
+    /*backgroundColor: props.colors.background,*/
+  })
+);
+
+const bounce = keyframes`
+from, 20%, 53%, 80%, to {
+  transform: translate3d(0,0,0);
+}
+
+40%, 43% {
+  transform: translate3d(0, -20px, 0);
+}
+
+70% {
+  transform: translate3d(0, -10px, 0);
+}
+
+90% {
+  transform: translate3d(0,-4px,0);
+}
+`;
+
+const ScollDownFlower = styled.img<Themes>(
+  {
+    width: "20%",
+    position: "absolute",
+    left: "15px",
+    animation: `${bounce} 5s ease infinite`,
   },
   (props) => ({
     color: props.colors.primary,
@@ -77,6 +120,8 @@ function LandingPage() {
               <div>
                 <div style={{ display: "flex", paddingBottom: "20px" }}>
                   <p>hello</p>
+                  <img src={Scroll_down} alt="scroll down" />
+                  {/*<ScrollDownFlower />*/}
                 </div>
               </div>
             ) : (
@@ -101,6 +146,20 @@ function LandingPage() {
                       <button onClick={handleClick}>
                         Change to {themeName} mode
                       </button>
+                      <ScollDownContainer colors={theme.colors}>
+                        <img
+                          src={Scroll_down}
+                          style={{ width: "20%", position: "relative" }}
+                          alt="scroll down"
+                        />
+                        <ScollDownFlower
+                          colors={theme.colors}
+                          src={
+                            require("../images/scroll_down_flower.svg").default
+                          }
+                          alt="mySvgImage"
+                        />
+                      </ScollDownContainer>
                     </div>
                   </ParallaxLayer>
                   <ParallaxLayer
