@@ -6,6 +6,11 @@ import { Footer } from "../components/Footer";
 import { Parallax, ParallaxLayer, IParallax } from "@react-spring/parallax";
 import flowerBackground from "../images/flowers.png";
 import Scroll_down from "../images/scroll_down.png";
+import Scroll_down_blue from "../images/scroll_down_blue.png";
+import JH from "../images/JH_.png";
+import JH_blue from "../images/JH_BLUE.png";
+import ON from "../images/ON.png";
+import ON_blue from "../images/ON_BLUE.png";
 //import { ReactComponent as ScrollDownFlower } from "../images/scroll_down_flower.svg";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -48,7 +53,11 @@ const PrimaryText = styled.div<Themes>(
 
 const ScollDownContainer = styled.div<Themes>(
   {
-    padding: 20,
+    marginTop: "-100%",
+    width: "50%",
+    margin: "auto",
+    display: "flex",
+    justifyContent: "center",
   },
   (props) => ({
     color: props.colors.primary,
@@ -56,29 +65,36 @@ const ScollDownContainer = styled.div<Themes>(
   })
 );
 
+
+const TitleContainer = styled.div`
+    margin-top: -3%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+ `
+
 const bounce = keyframes`
 from, 20%, 53%, 80%, to {
   transform: translate3d(0,0,0);
 }
 
 40%, 43% {
-  transform: translate3d(0, -20px, 0);
-}
-
-70% {
   transform: translate3d(0, -10px, 0);
 }
 
+70% {
+  transform: translate3d(0, -5px, 0);
+}
+
 90% {
-  transform: translate3d(0,-4px,0);
+  transform: translate3d(0,-2px,0);
 }
 `;
 
 const ScollDownFlower = styled.img<Themes>(
   {
     width: "20%",
-    position: "absolute",
-    left: "15px",
+    marginLeft: '-190px',
     animation: `${bounce} 5s ease infinite`,
   },
   (props) => ({
@@ -139,23 +155,34 @@ function LandingPage() {
                     }}
                   >
                     <div>
-                      <p>goodbye</p>
-                      <PrimaryText colors={theme.colors}>
+                      {/*<PrimaryText colors={theme.colors}>
                         This text should be {theme.colors.primary} color!
-                      </PrimaryText>
-                      <button onClick={handleClick}>
+                  </PrimaryText>*/}
+                      <TitleContainer>
+                      <img
+                          src={theme === lightTheme ? JH : JH_blue}
+                          style={{ width: "90%"}}
+                          alt="John"
+                        />
+                        <img
+                          src={theme === lightTheme ? ON : ON_blue}
+                          style={{ width: "90%", marginLeft: "-90%"}}
+                          alt="Schriemer"
+                        />
+                        <button onClick={handleClick}>
                         Change to {themeName} mode
                       </button>
+                        </TitleContainer>
                       <ScollDownContainer colors={theme.colors}>
                         <img
-                          src={Scroll_down}
-                          style={{ width: "20%", position: "relative" }}
+                          src={theme === lightTheme ? Scroll_down : Scroll_down_blue}
+                          style={{ width: "20%" }}
                           alt="scroll down"
                         />
                         <ScollDownFlower
                           colors={theme.colors}
-                          src={
-                            require("../images/scroll_down_flower.svg").default
+                          src={theme === lightTheme ?
+                            require("../images/scroll_down_flower.svg").default : require("../images/scroll_down_flower_blue.png").default
                           }
                           alt="mySvgImage"
                         />
