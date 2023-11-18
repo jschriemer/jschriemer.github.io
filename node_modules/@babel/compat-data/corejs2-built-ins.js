@@ -1,4 +1,2 @@
-// Node < 13.3 doesn't support export maps in package.json.
-// Use this proxy file as a fallback.
-
+// Todo (Babel 8): remove this file as Babel 8 drop support of core-js 2
 module.exports = require("./data/corejs2-built-ins.json");

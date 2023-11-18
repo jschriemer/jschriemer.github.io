@@ -1,4 +1,2 @@
-// Node < 13.3 doesn't support export maps in package.json.
-// Use this proxy file as a fallback.
-
+// Todo (Babel 8): remove this file now that it is included in babel-plugin-polyfill-corejs3
 module.exports = require("./data/corejs3-shipped-proposals.json");
