@@ -1,4 +1,5 @@
 import { Grid, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 // import aboutBackground from "../../assets/images/about-background.png";
 
 export default function About() {
@@ -29,9 +30,13 @@ export default function About() {
       >
         <Typography variant="h1">About</Typography>
       </Grid>
-      <Grid item>
-        <Typography>About</Typography>
-      </Grid>
+      <Link
+        to="/"
+        data-barba="link"
+        style={{ color: "#EDE5D8", textDecoration: "none" }}
+      >
+        <Typography variant="h5">Home</Typography>
+      </Link>
     </Grid>
   );
 }

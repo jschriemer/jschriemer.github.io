@@ -1,14 +1,27 @@
 import { Grid, Typography } from "@mui/material";
 import React, { useState } from "react";
+import { useSpring, animated } from "react-spring";
+import { ExpCard } from "../../components/ExpCard";
+
+export interface EXPType {
+  title: string;
+  description: string;
+  jobTitle: string;
+  term: string;
+  backgroundColor: string;
+  hoverBackgroundColor: string;
+  hoverTextColor: string;
+}
 
 const EXP = [
   {
     title: "Natureblocks",
-    description:
-      "",
+    description: "",
     jobTitle: "frontend developer",
     term: "2022 - Present",
-    backgroundColor: "",
+    backgroundColor: "#E42966",
+    hoverBackgroundColor: "limegreen",
+    hoverTextColor: "white",
   },
   {
     title: "Semios",
@@ -16,7 +29,9 @@ const EXP = [
       "A Minecraft mod that adds a variety of new blocks and items to the game.",
     jobTitle: "fullstack developer",
     term: "2021",
-    backgroundColor: "",
+    backgroundColor: "#E42966",
+    hoverBackgroundColor: "aquamarine",
+    hoverTextColor: "white",
   },
   {
     title: "Redbrick",
@@ -24,7 +39,9 @@ const EXP = [
       "A Minecraft mod that adds a variety of new blocks and items to the game.",
     jobTitle: "fullstack developer",
     term: "2021",
-    backgroundColor: "",
+    backgroundColor: "#E42966",
+    hoverBackgroundColor: "black",
+    hoverTextColor: "white",
   },
   {
     title: "University of Victoria",
@@ -32,12 +49,15 @@ const EXP = [
       "A Minecraft mod that adds a variety of new blocks and items to the game.",
     jobTitle: "software engineering",
     term: "2016 - 2022",
-    backgroundColor: "",
+    backgroundColor: "#E42966",
+    hoverBackgroundColor: "goldenrod",
+    hoverTextColor: "white",
   },
 ];
 
 export default function Work() {
-  const [isHovered, setIsHovered] = useState<number | null>(null);
+  const [hoveredItem, setHoveredItem] = useState<number | null>(null);
+
   return (
     <Grid
       container
@@ -51,57 +71,12 @@ export default function Work() {
       }}
     >
       {EXP.map((exp, idx) => (
-        <Grid
-          item
-          onMouseEnter={() => setIsHovered(idx)}
-          onMouseLeave={() => setIsHovered(null)}
-          sx={{
-            backgroundColor: exp.backgroundColor,
-            border: 1,
-            borderColor: "#E5D6C4",
-            height: "100%",
-            flex: 1,
-          }}
-        >
-          <Grid
-            container
-            sx={{
-              flexDirection: "column",
-              justifyContent: "space-between",
-              height: "100%",
-              py: 8,
-              px: 2,
-              color: "#E5D6C4",
-            }}
-          >
-            {/* Job title */}
-            <Grid item sx={{}}>
-              <Typography variant="h4">{exp.jobTitle}</Typography>
-              <Typography variant="body1">{exp.term}</Typography>
-            </Grid>
-
-            {/* Description */}
-            {isHovered === idx && (
-              <Grid item sx={{width: '200px'}}>
-              <Typography
-                variant="body1"
-                sx={{
-                  textAlign: 'justify',
-                  hyphens: 'auto', // This can help with word breaking
-                  
-                }}
-              >
-                {exp.description}
-              </Typography>
-            </Grid>
-            )}
-
-            {/* Company Name   */}
-            <Grid item>
-              <Typography variant="h5">{exp.title}</Typography>
-            </Grid>
-          </Grid>
-        </Grid>
+        <ExpCard
+          exp={exp}
+          isHovering={hoveredItem === idx}
+          onMouseEnter={() => setHoveredItem(idx)}
+          onMouseLeave={() => setHoveredItem(null)}
+        />
       ))}
     </Grid>
   );
