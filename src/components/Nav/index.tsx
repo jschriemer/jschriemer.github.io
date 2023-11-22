@@ -14,9 +14,30 @@ import { ReactComponent as AboutIcon } from "../../assets/images/about.svg";
 import { ReactComponent as ContactIcon } from "../../assets/images/contact.svg";
 
 const icons = [
-  { Component: GitHubIcon, alt: "GitHub", x: 0, y: 0, morph: 'M10 80 Q 95 10 180 80', link: 'https://github.com/' },
-  { Component: LinkedInIcon, alt: "LinkedIn", x: 0, y: 0, morph: 'M10 80 Q 95 10 180 80', link: 'https://linkedin.com/' },
-  { Component: AlternateEmailIcon, alt: "Email", x: 0, y: 0, morph: 'M10 80 Q 95 10 180 80', link: 'mailto:example@example.com' },
+  {
+    Component: GitHubIcon,
+    alt: "GitHub",
+    x: 0,
+    y: 0,
+    morph: "M10 80 Q 95 10 180 80",
+    link: "https://github.com/",
+  },
+  {
+    Component: LinkedInIcon,
+    alt: "LinkedIn",
+    x: 0,
+    y: 0,
+    morph: "M10 80 Q 95 10 180 80",
+    link: "https://linkedin.com/",
+  },
+  {
+    Component: AlternateEmailIcon,
+    alt: "Email",
+    x: 0,
+    y: 0,
+    morph: "M10 80 Q 95 10 180 80",
+    link: "mailto:example@example.com",
+  },
 ];
 
 const Navbar: React.FC = () => {
@@ -63,7 +84,12 @@ const Navbar: React.FC = () => {
       <Grid item sx={{ p: 1, px: 4 }}>
         <Grid
           container
-          sx={{ justifyContent: "space-between", color: "#EDE5D8", p: 2, flexWrap: 'nowrap' }}
+          sx={{
+            justifyContent: "space-between",
+            color: "#EDE5D8",
+            p: 2,
+            flexWrap: "nowrap",
+          }}
         >
           <Link
             to="/about"
@@ -79,7 +105,7 @@ const Navbar: React.FC = () => {
           >
             <PortfolioIcon style={{ width: "220px", height: "80px" }} />
           </Link>
-          <Grid item>
+         {/*  <Grid item>
             {icons.map((icon, index) => (
               <div
                 ref={iconRefs[index]}
@@ -91,69 +117,91 @@ const Navbar: React.FC = () => {
                   opacity: isVisible ? 1 : 0,
                 }}
               >
-                <icon.Component sx={{ transform: 'scale(1.2)',}} />
+                <icon.Component sx={{ transform: "scale(1.2)" }} />
+              </div>
+            ))} */}
+            {icons.map((icon, index) => (
+              <div
+                ref={iconRefs[index]}
+                style={{
+                  position: "absolute",
+                  left: icon.x,
+                  top: icon.y,
+
+                  opacity: isVisible ? 1 : 0,
+                }}
+              >
+                <icon.Component sx={{ transform: "scale(1.2)" }} />
               </div>
             ))}
 
-
-{/* is mobile ? do not render instead render icons already displayed on bottom of screen */}
-            <motion.div
-              animate={controls}
-              onClick={() => {
-                setIsVisible(false); // Immediately set isVisible to false when the component is clicked
-                controls.start(shakeAnimation);
-                setTimeout(() => setIsVisible(true), 400); // Delay the state change to true by 0.4 seconds
-              }}
+            <Link
+              to="/"
+              data-barba="link"
+              style={{ color: "#EDE5D8", textDecoration: "none", border: 1 }}
             >
-              <ContactIcon
-                ref={contactRef}
-                style={{
-                  width: "200px",
-                  height: "80px",
-                  border: 3,
-
-                  cursor: "pointer",
-                }}
+              
+              {/* is mobile ? do not render instead render icons already displayed on bottom of screen */}
+              <motion.div
+                animate={controls}
                 onClick={() => {
-                  if (contactRef.current) {
-                    const rect = contactRef.current.getBoundingClientRect();
-                    iconRefs.forEach((ref, idx) => {
-                      if (ref.current) {
-                        gsap.set(ref.current, {
-                          x: rect.left + 30,
-                          y: rect.top + 50,
-                        });
-                        gsap.to(ref.current, {
-                          x: -50 + rect.left + Math.random() * 200 - 50*idx,
-                          y: 150 + rect.top + Math.random() * 100 - 50*idx,
-                          duration: 1.2,
-                          delay: 0.5,
-                        });
-                      }
-                    });
-                  }
+                  setIsVisible(false); // Immediately set isVisible to false when the component is clicked
+                  controls.start(shakeAnimation);
+                  setTimeout(() => setIsVisible(true), 400); // Delay the state change to true by 0.4 seconds
                 }}
-                onMouseEnter={() => {
-                  if (contactRef.current) {
-                    gsap.to(contactRef.current, {
-                      fill: "red",
-                      duration: 5,
-                    });
-                  }
-                }}
-                onMouseLeave={() => {
-                  if (contactRef.current) {
-                    gsap.to(contactRef.current, {
-                      color: "transparent",
-                      duration: 5,
-                    });
-                  }
-                }}
-              />
-            </motion.div>
+              >
+                
+                <ContactIcon
+                  ref={contactRef}
+                  data-barba="link"
+                  style={{
+                    width: "200px",
+                    height: "80px",
+                    border: 3,
+
+                    cursor: "pointer",
+                  }}
+                  onClick={() => {
+                    if (contactRef.current) {
+                      const rect = contactRef.current.getBoundingClientRect();
+                      iconRefs.forEach((ref, idx) => {
+                        if (ref.current) {
+                          gsap.set(ref.current, {
+                            x: rect.left + 30,
+                            y: rect.top + 50,
+                          });
+                          gsap.to(ref.current, {
+                            x: -50 + rect.left + Math.random() * 200 - 50 * idx,
+                            y: 150 + rect.top + Math.random() * 100 - 50 * idx,
+                            duration: 1.2,
+                            delay: 0.5,
+                          });
+                        }
+                      });
+                    }
+                  }}
+                  onMouseEnter={() => {
+                    if (contactRef.current) {
+                      gsap.to(contactRef.current, {
+                        fill: "red",
+                        duration: 5,
+                      });
+                    }
+                  }}
+                  onMouseLeave={() => {
+                    if (contactRef.current) {
+                      gsap.to(contactRef.current, {
+                        color: "transparent",
+                        duration: 5,
+                      });
+                    }
+                  }}
+                />
+              </motion.div>
+            </Link>
           </Grid>
         </Grid>
-      </Grid>
+      {/* </Grid> */}
     </motion.div>
   );
 };

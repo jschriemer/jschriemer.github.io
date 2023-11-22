@@ -106,6 +106,7 @@ const HomePage = () => {
               position: "absolute",
               bottom: 50,
               left: "29%",
+              color: 'white'
             }}
           >
             design & development
@@ -133,7 +134,7 @@ const HomePage = () => {
         */}
         <Grid container sx={{ flexDirection: "column" }}>
           {/* 1st line*/}
-          <Grid item>
+          {/* <Grid item>
             {rows.map((row, rowIndex) => (
               <Grid
                 container
@@ -151,7 +152,7 @@ const HomePage = () => {
                 ))}
               </Grid>
             ))}
-          </Grid>
+          </Grid> */}
         </Grid>
       </Grid>
     </Grid>
