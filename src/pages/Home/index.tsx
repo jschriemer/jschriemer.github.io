@@ -1,61 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import { Grid, Typography } from "@mui/material";
 import forefrontImage from "../../assets/images/header-forefront.png";
 import headerBackground from "../../assets/images/header-background.png";
 import { motion } from "framer-motion";
 import logoFilled from "../../assets/images/logo-filled.svg";
 import Nav from "../../components/Nav";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 
-const words = [
-  "based",
-  "in",
-  "victoria",
-  "BC",
-  "a",
-  "hopeful",
-  "tech",
-  "optimist",
-  "will",
-  "a",
-  "radical",
-  "redesign",
-  "save",
-  "us",
-  "all?",
-];
-
-const HomePage = () => {
-  const [rows, setRows] = useState([words]);
-
-  const wordRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (wordRef.current) {
-      const newRows = [];
-      let currentRow: string[] = [];
-      let currentRowWidth = 0;
-
-      words.forEach((word) => {
-        const wordWidth = wordRef?.current?.offsetWidth ?? 0;
-        if (currentRowWidth + wordWidth > 300 && currentRow.length >= 2) {
-          newRows.push(currentRow);
-          currentRow = [word];
-          currentRowWidth = wordWidth;
-        } else {
-          currentRow.push(word);
-          currentRowWidth += wordWidth;
-        }
-      });
-
-      newRows.push(currentRow);
-
-      setRows(newRows);
-    }
-  }, []);
-
+function HomePage() {
   return (
     <Grid
       container
@@ -88,7 +39,7 @@ const HomePage = () => {
       </motion.div>
 
       {/* Header */}
-      <Nav />
+      <Nav currentPage={"home"} />
 
       {/* Center logo  */}
       <Grid item sx={{ alignSelf: "center", color: "#EDE5D8" }}>
@@ -106,7 +57,7 @@ const HomePage = () => {
               position: "absolute",
               bottom: 50,
               left: "29%",
-              color: 'white'
+              color: "white",
             }}
           >
             design & development
@@ -157,6 +108,6 @@ const HomePage = () => {
       </Grid>
     </Grid>
   );
-};
+}
 
 export default HomePage;

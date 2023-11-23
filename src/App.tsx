@@ -7,14 +7,16 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
-import Work from "./pages/Work";
+import Portfolio from "./pages/Portfolio";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./assets/styles/global.css";
+
+// add a state for if about clicked. If clicked, start animating white blob growing from 'about' until it covers the whole screen at which point /about page is rendered
 
 const App: React.FC = () => {
   useEffect(() => {
     console.info("🚀App:init");
-    const duration = 1200;
+    const duration = 2000;
 
     barba.hooks.before(() => {
       if (barba.wrapper) {
@@ -48,7 +50,8 @@ const App: React.FC = () => {
           to: { route: "home" },
           leave: ({ current }) =>
             slideDown(current.container, duration * 0.5, -100, 0),
-          enter: ({ next }) => slideDown(next.container, duration * 0.5, -100, 0),
+          enter: ({ next }) =>
+            slideDown(next.container, duration * 0.5, -100, 0),
         },
         {
           to: { namespace: "home" },
@@ -66,9 +69,10 @@ const App: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className="barba-container" style={{ border: 0 }}>
+      <div className="barba-container">
         <Router>
-          <div data-barba="wrapper" style={{ border: 0 }}>
+          <div data-barba="wrapper"> 
+            {/* White blob element */}
             <Routes>
               <Route
                 path="/"
@@ -76,7 +80,6 @@ const App: React.FC = () => {
                   <div
                     data-barba="container"
                     data-barba-namespace="home"
-                    style={{ border: 0 }}
                   >
                     <Home />
                   </div>
@@ -91,10 +94,10 @@ const App: React.FC = () => {
                 }
               />
               <Route
-                path="/work"
+                path="/portfolio"
                 element={
                   <div data-barba="container" data-barba-namespace="work">
-                    <Work />
+                    <Portfolio />
                   </div>
                 }
               />
