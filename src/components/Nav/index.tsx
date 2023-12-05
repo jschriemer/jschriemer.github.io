@@ -10,6 +10,7 @@ import { ReactComponent as PortfolioIcon } from "../../assets/images/portfolio.s
 import { ReactComponent as AboutIcon } from "../../assets/images/about.svg";
 import { ReactComponent as ContactIcon } from "../../assets/images/contact.svg";
 import logoBorder from "../../assets/images/logo-border.svg";
+import { NavAnimation } from "../NavAnimation";
 
 const icons = [
   {
@@ -18,7 +19,7 @@ const icons = [
     x: 0,
     y: 0,
     morph: "M10 80 Q 95 10 180 80",
-    link: "https://github.com/",
+    link: "https://github.com/jschriemer",
   },
   {
     Component: LinkedInIcon,
@@ -26,7 +27,7 @@ const icons = [
     x: 0,
     y: 0,
     morph: "M10 80 Q 95 10 180 80",
-    link: "https://linkedin.com/",
+    link: "https://www.linkedin.com/in/john-schriemer-7955181a1/",
   },
   {
     Component: AlternateEmailIcon,
@@ -34,30 +35,42 @@ const icons = [
     x: 0,
     y: 0,
     morph: "M10 80 Q 95 10 180 80",
-    link: "mailto:example@example.com",
+    link: "mailto:jschriem@gmail.com",
   },
 ];
 
 function Navbar({
   currentPage,
+  focusedElement = null,
+  setFocusedElement = () => {},
 }: {
   currentPage: "about" | "portfolio" | "home";
+  focusedElement?: "logo" | "about" | "contact" | null;
+  setFocusedElement?: React.Dispatch<
+    React.SetStateAction<"logo" | "about" | "contact" | null>
+  >;
 }) {
   const controls = useAnimation();
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const [scrollSpeed, setScrollSpeed] = useState(0);
   const iconRefs = icons.map(() => React.createRef<HTMLImageElement>());
   const contactRef = React.createRef<SVGSVGElement>();
   const [isVisible, setIsVisible] = useState(false);
-  const [aboutClicked, setAboutClicked] = useState(false);
+  const [portfolioClicked, setPortfolioClicked] = useState(false);
   const [homeClicked, setHomeClicked] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
   const navigate = useNavigate();
 
+  const handleAnimationEnd = () => {
+    setIsAnimating(false);
+    navigate("/portfolio");
+  };
+
   useEffect(() => {
-    if (aboutClicked) {
+    console.log("portfolioClicked: ", portfolioClicked);
+    if (portfolioClicked) {
+      setIsAnimating(true);
       const timer = setTimeout(() => {
-        navigate("/about");
-      }, 1000); // Assuming the animation takes 3 seconds
+        navigate("/portfolio");
+      }, 100); // Assuming the animation takes 3 seconds
       return () => clearTimeout(timer);
     }
 
@@ -67,42 +80,7 @@ function Navbar({
       }, 1000); // Assuming the animation takes 3 seconds
       return () => clearTimeout(timer);
     }
-  }, [aboutClicked, homeClicked, navigate]);
-
-  /*   const onAboutClick = () => {
-    // Trigger the animation
-    anime({
-      targets: ".white-blob",
-      width: ["0%", "100%"], // Grow width from 0 to 100%
-      height: ["0%", "100%"], // Grow height from 0 to 100%
-      borderRadius: ["50%", "0%"], // Optional: Change from circle to square
-      backgroundColor: "#FFFFFF", // White color for the blob
-      duration: 1500, // Duration of the animation in milliseconds
-      easing: "easeInOutQuad", // Easing function for the animation
-      begin: () => {
-        (document.querySelector(".white-blob") as HTMLElement).style.display =
-          "block";
-      },
-      complete: () => {
-        // Navigate to /about after the animation
-        navigate("/about");
-      },
-    });
-  }; */
-
-  const handleScroll = () => {
-    const currentScrollY = window.scrollY;
-    const speed = Math.abs(currentScrollY - lastScrollY);
-    setScrollSpeed(speed);
-    setLastScrollY(currentScrollY);
-
-    // Adjust the animation based on scroll speed
-    controls.start({
-      rotate: 90,
-      x: "100vw",
-      transition: { duration: Math.min(0.5, 0.1 + speed / 1000) },
-    });
-  };
+  }, [portfolioClicked, homeClicked, navigate]);
 
   const shakeAnimation = {
     x: [0, 1, 2, 3, 4, -1, 0],
@@ -110,36 +88,17 @@ function Navbar({
     transition: { duration: 0.45 },
   };
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lastScrollY, scrollSpeed]);
-
-  console.log('currentPAge: ', currentPage)
-
   return (
     <>
-      <div
-        className="white-blob"
-        style={{
-          position: "absolute",
-          backgroundColor: "white",
-          borderRadius: "50%",
-          width: aboutClicked ? "2000%" : "0",
-          height: aboutClicked ? "2000%" : "0",
-          transform: "translate(-50%, -50%)",
-          top: "10%",
-          left: "10%",
-          transition: "width 3s, height 3s", // Adjust timing to match your animation duration
-        }}
-      />
       <motion.div
         initial={false}
-        style={{ position: "fixed", top: 0, left: 0, width: "100%" }}
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          zIndex: 100,
+        }}
       >
         <Grid item sx={{ p: 1, px: 4 }}>
           <Grid
@@ -151,15 +110,18 @@ function Navbar({
               flexWrap: "nowrap",
             }}
           >
+            {/* About */}
             <Link
-              to="/"
-              onClick={() =>
-                currentPage === "about"
-                  ? setHomeClicked(true)
-                  : setAboutClicked(true)
-              }
+              to={"/"}
+              onClick={() => setFocusedElement("about")}
               data-barba="link"
-              style={{ color: "#EDE5D8", textDecoration: "none", border: 1 }}
+              style={{
+                color: "#EDE5D8",
+                textDecoration: "none",
+                cursor: "pointer",
+                //border: 1,
+                filter: currentPage === "about" ? "invert(1)" : "invert(0)",
+              }}
             >
               {currentPage === "about" ? (
                 <img
@@ -175,10 +137,26 @@ function Navbar({
                 <AboutIcon style={{ width: "200px", height: "80px" }} />
               )}
             </Link>
-            <Link
-              to="/portfolio"
+            {isAnimating && (
+              <NavAnimation onAnimationEnd={handleAnimationEnd} />
+            )}
+
+            {/* Portfolio */}
+            <Grid
+              item
+              //to={currentPage === "portfolio" ? "/" : "/portfolio"}
               data-barba="link"
-              style={{ color: "#EDE5D8", textDecoration: "none", border: 1 }}
+              onClick={() =>
+                currentPage === "portfolio"
+                  ? setHomeClicked(true)
+                  : setPortfolioClicked(true)
+              }
+              sx={{
+                color: "#EDE5D8",
+                textDecoration: "none",
+                //border: 1,
+                filter: currentPage === "about" ? "invert(1)" : "invert(0)",
+              }}
             >
               {currentPage === "portfolio" ? (
                 <img
@@ -190,47 +168,56 @@ function Navbar({
                     cursor: "pointer",
                   }}
                 />
-              ) : (<PortfolioIcon style={{ width: "220px", height: "80px" }} />)}
-            </Link>
-            {/*  <Grid item>
+              ) : (
+                <PortfolioIcon style={{ width: "220px", height: "80px" }} />
+              )}
+            </Grid>
+
+            {/* Contact Icons */}
             {icons.map((icon, index) => (
-              <div
+              <Grid
+                item
                 ref={iconRefs[index]}
-                style={{
+                sx={{
                   position: "absolute",
                   left: icon.x,
                   top: icon.y,
-
                   opacity: isVisible ? 1 : 0,
+                  zIndex: 1000,
                 }}
               >
-                <icon.Component sx={{ transform: "scale(1.2)" }} />
-              </div>
-            ))} */}
-            {icons.map((icon, index) => (
-              <div
-                ref={iconRefs[index]}
-                style={{
-                  position: "absolute",
-                  left: icon.x,
-                  top: icon.y,
-
-                  opacity: isVisible ? 1 : 0,
-                }}
-              >
-                <icon.Component sx={{ transform: "scale(1.2)" }} />
-              </div>
+                <icon.Component
+                  sx={{
+                    transform: "scale(1.2)",
+                    cursor: "pointer",
+                    zIndex: 1800,
+                    //on hover
+                    "&:hover": {
+                      color: "hotpink",
+                      transition: "color 0.5s",
+                    },
+                  }}
+                  onClick={() => {
+                    window.open(icon.link, "_blank");
+                  }}
+                />
+              </Grid>
             ))}
 
+            {/* Contact */}
             <Link
-              to="/"
+              to={currentPage === "home" ? "/" : "/" + currentPage}
               data-barba="link"
-              style={{ color: "#EDE5D8", textDecoration: "none", border: 1 }}
+              style={{
+                color: "#EDE5D8",
+                textDecoration: "none" /* border: 1 */,
+              }}
             >
               {/* is mobile ? do not render instead render icons already displayed on bottom of screen */}
               <motion.div
                 animate={controls}
                 onClick={() => {
+                  setFocusedElement("contact");
                   setIsVisible(false); // Immediately set isVisible to false when the component is clicked
                   controls.start(shakeAnimation);
                   setTimeout(() => setIsVisible(true), 400); // Delay the state change to true by 0.4 seconds
@@ -243,7 +230,7 @@ function Navbar({
                     width: "200px",
                     height: "80px",
                     border: 3,
-
+                    filter: currentPage === "about" ? "invert(1)" : "invert(0)",
                     cursor: "pointer",
                   }}
                   onClick={() => {
@@ -256,8 +243,12 @@ function Navbar({
                             y: rect.top + 50,
                           });
                           gsap.to(ref.current, {
-                            x: -50 + rect.left + Math.random() * 200 - 50 * idx,
-                            y: 150 + rect.top + Math.random() * 100 - 50 * idx,
+                            x:
+                              -70 * (idx + 1) +
+                              rect.left +
+                              Math.random() * 200 -
+                              50,
+                            y: rect.top * (idx + 1) + Math.random() * 1, // Add some randomness to the y position
                             duration: 1.2,
                             delay: 0.5,
                           });

@@ -1,0 +1,18 @@
+/* NavAnimation.css */
+.frame-animation {
+    width: 100vw; /* Set to the width of a single frame */
+    height: 100vh; /* Set to the height of your frames */
+    position: 'absolute';
+    left: 0;
+    top: 400;
+    z-index: 1000;
+    background-image: url('../../assets/animations/portfolio.png'); /* Path to your PNG file */
+    background-repeat: no-repeat;
+    background-size: cover;
+    animation: play 1s steps(8) infinite; 
+  }
+  
+  @keyframes play {
+    from { background-position: 0; }
+    to { background-position: 0; } /* 8 frames * 100px each */
+  }
