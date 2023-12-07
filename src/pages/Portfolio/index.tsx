@@ -59,29 +59,21 @@ const EXP: EXPType[] = [
     software engineer, allowing me to deliver code used by thousands worldwide. 
     Working alongside a team of talented engineers, I gained valuable experience 
     in a successful software development process at a large-scale company addressing global 
-    food security issues.
-    `,
-    jobTitle: "fullstack developer",
-    term: "2021",
-    backgroundColor: "black",
-    hoverBackgroundColor: "#C4E4E5",
-    hoverTextColor: "black",
-    svg: semios,
-  },
-  {
-    title: "Redbrick",
-    description: `My focus at Redbrick included learning QA
+    food security issues. ?? 
+
+    My focus at Redbrick included learning QA
       integration testing, delivering mobile-first dynamic web application code, and participating in agile
       iteration processes. Working with an established local tech company allowed me to
       learn reliable software development practices which I now apply to
-      future projects.
+      future projects
     `,
     jobTitle: "fullstack developer",
     term: "2021",
     backgroundColor: "black",
     hoverBackgroundColor: "#E5C4C4",
     hoverTextColor: "black",
-    svg: redbrick,
+    svg: semios,
+    //svgTwo: redbrick
   },
   {
     title: "University of Victoria",
@@ -111,7 +103,7 @@ export default function Portfolio() {
         flexwrap: "nowrap",
         height: "100vh",
         width: "100%",
-        backgroundColor: "white",
+        backgroundColor: "black",
       }}
     >
       <Grid
@@ -153,28 +145,50 @@ export default function Portfolio() {
             </Box>
           </Typography>
         </Grid>
-        {/* TODO: add a currentpage prop, and in its place render the JohnSchriemer logo which redirects back to '/' */}
         <Nav currentPage={"portfolio"} />
       </Grid>
-      <Grid item sx={{ flex: 1 }}>
-        <Grid
-          container
-          sx={{
-            height: "100%",
-            gridTemplateColumns: "1fr",
-            flexDirection: "row",
-            flexWrap: "noWrap",
-            width: "100%",
-          }}
-        >
-          {EXP.map((exp, idx) => (
-            <ExpCard
-              exp={exp}
-              isHovering={hoveredItem === idx}
-              onMouseEnter={() => setHoveredItem(idx)}
-              onMouseLeave={() => setHoveredItem(null)}
-            />
-          ))}
+      <Grid item>
+        <Grid container>
+          <Grid item sx={{ flex: 1 }}>
+            <Grid
+              container
+              sx={{
+                height: "100%",
+                flexDirection: "column",
+                justifyContent: "center",
+                width: "60%",
+              }}
+            >
+              {EXP.map((exp, idx) => (
+                <Grid item sx={{ width: "100%" }}>
+                  <ExpCard
+                    exp={exp}
+                    isHovering={hoveredItem === idx}
+                    onMouseEnter={() => setHoveredItem(idx)}
+                    onMouseLeave={() => setHoveredItem(null)}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          </Grid>
+          <Grid item sx={{ flex: 1, border: "1px solid red" }}>
+            <Grid
+              container
+              sx={{
+                height: "100%",
+                flexDirection: "column",
+                justifyContent: "center",
+                width: "100%",
+                border: "1",
+                borderColor: "white",
+                color: "white",
+              }}
+            >
+              <Typography variant="h2">B.Eng Software Engineering</Typography>
+              B.Eng Software Engineering frontend development machine learning
+              ui design -
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </Grid>

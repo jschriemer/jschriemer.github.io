@@ -1,11 +1,11 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Grid, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 import Nav from "../../components/Nav";
-import aboutBackground from "../../assets/images/aboutBackground3.png";
+//import aboutBackground from "../../assets/images/aboutBackground3.png";
 import anime from "animejs";
-import IMG_5084 from "../../assets/images/IMG_5084.jpg";
-import DSC_0644 from "../../assets/images/DSC_0644.jpg";
+//import IMG_5084 from "../../assets/images/IMG_5084.jpg";
+//import DSC_0644 from "../../assets/images/DSC_0644.jpg";
 import basedinvic from "../../assets/images/basedinvic.svg";
 
 export default function About() {
@@ -159,7 +159,7 @@ export default function About() {
             top: "0",
           }}
         >
-          <img
+          {/* <img
             src={DSC_0644}
             alt="John Schriemer"
             style={{
@@ -168,7 +168,7 @@ export default function About() {
               objectFit: "cover",
               //borderRadius: 10,
             }}
-          />
+          /> */}
         </Grid>
       </Grid>
     </div>

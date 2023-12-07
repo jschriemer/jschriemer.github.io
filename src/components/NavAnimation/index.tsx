@@ -1,21 +1,29 @@
 import { Grid } from "@mui/material";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./navAnimation.css";
 
-// Define the props type
 interface NavAnimationProps {
   onAnimationEnd: () => void;
 }
 
-export const NavAnimation: React.FC<NavAnimationProps> = ({
-  onAnimationEnd,
-}) => {
+export const NavAnimation: React.FC<NavAnimationProps> = ({ onAnimationEnd }) => {
   const animationRef = useRef<HTMLDivElement>(null);
+  const [animationClass, setAnimationClass] = useState("frame-animation");
+
+  const restartAnimation = () => {
+    // Remove the class
+    setAnimationClass("");
+    // Force a reflow
+    if (animationRef.current) void animationRef.current.offsetWidth;
+    // Add the class back
+    setAnimationClass("frame-animation");
+  };
 
   useEffect(() => {
+    restartAnimation(); // Restart animation when component mounts or onAnimationEnd changes
+
     const animationElement = animationRef.current;
     if (animationElement) {
-      // Add event listener
       animationElement.addEventListener("animationend", onAnimationEnd);
 
       // Clean up
@@ -26,15 +34,13 @@ export const NavAnimation: React.FC<NavAnimationProps> = ({
   }, [onAnimationEnd]);
 
   return (
-    <>
-      <Grid
-        item
-        ref={animationRef}
-        className="frame-animation"
-        sx={{ position: "absolute", left: "0", top: "0" }}
-      >
-        {/* Animation */}
-      </Grid>
-    </>
+    <Grid
+      item
+      ref={animationRef}
+      className={animationClass}
+      sx={{ position: "absolute", left: "0", top: "0" }}
+    >
+      {/* Animation */}
+    </Grid>
   );
 };

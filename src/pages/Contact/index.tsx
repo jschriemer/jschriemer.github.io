@@ -1,11 +1,11 @@
 import { Grid, Typography } from "@mui/material";
-import forefrontImage from "../../assets/images/header-forefront.png";
+//import forefrontImage from "../../assets/images/header-forefront.png";
 import { motion } from "framer-motion";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
-import IMG_6775 from "../../assets/images/IMG_6775.png";
+//import IMG_6775 from "../../assets/images/IMG_6775.png";
 
 export default function Contact() {
   return (
@@ -20,7 +20,7 @@ export default function Contact() {
         alignItems: "flex-start",
         position: "relative",
         px: 20,
-        backgroundImage: `url(${IMG_6775})`,
+        //backgroundImage: `url(${IMG_6775})`,
         backgroundPosition: "center",
         backgroundSize: "cover",
       }}
@@ -55,7 +55,7 @@ export default function Contact() {
           border: 1,
           height: "600px",
           width: "400px",
-          backgroundImage: `url(${IMG_6775})`,
+          //backgroundImage: `url(${IMG_6775})`,
           backgroundPosition: "center",
           backgroundSize: "cover",
         }}
@@ -106,11 +106,11 @@ export default function Contact() {
           left: 0,
         }}
       >
-        <img
+        {/* <img
           src={IMG_6775}
           alt="Forefront"
           style={{ width: "100%", height: "100%", objectFit: "cover" }}
-        />
+        /> */}
       </motion.div>
     </Grid>
   );
