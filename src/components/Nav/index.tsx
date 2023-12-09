@@ -6,12 +6,15 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import AlternateEmailIcon from "@mui/icons-material/Email";
 import { gsap } from "gsap";
-import { ReactComponent as PortfolioIcon } from "../../assets/images/portfolio.svg";
+//import { ReactComponent as PortfolioIcon } from "../../assets/images/portfolio.svg";
+//import { ReactComponent as PortfolioIcon2 } from "../../assets/images/portfolio2.svg";
 import { ReactComponent as AboutIcon } from "../../assets/images/about.svg";
 import { ReactComponent as ContactIcon } from "../../assets/images/contact.svg";
 import logoBorder from "../../assets/images/logo-border.svg";
 import { NavAnimation } from "../NavAnimation";
-import isMobile from "../../utils/transitions/isMobile";
+import isMobile, { useIsTablet } from "../../utils/transitions/isMobile";
+import sun from "../../assets/images/sun.png";
+import moon from "../../assets/images/moon.png";
 
 const icons = [
   {
@@ -49,6 +52,7 @@ function Navbar({
   setPortfolioClicked = () => {},
   setIsAnimating = () => {},
   isAnimating = false,
+  lightMode = false,
 }: {
   currentPage: "about" | "portfolio" | "home";
   focusedElement?: "logo" | "about";
@@ -58,17 +62,19 @@ function Navbar({
   setPortfolioClicked?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsAnimating?: React.Dispatch<React.SetStateAction<boolean>>;
   isAnimating?: boolean;
+  lightMode?: boolean;
 }) {
   const controls = useAnimation();
   const portfolioIconRef = React.createRef<HTMLImageElement>();
   const iconRefs = icons.map(() => React.createRef<HTMLImageElement>());
   const contactRef = React.createRef<SVGSVGElement>();
   const [isVisible, setIsVisible] = useState(false);
-  const [homeClicked, setHomeClicked] = useState(false);
+  // const [homeClicked, setHomeClicked] = useState(false);
   const [shouldAnimateContactIcons, setShouldAnimateContactIcons] =
     useState(false);
 
   const isMobileDevice = isMobile();
+  const isTabletDevice = useIsTablet();
 
   const handleAnimationEnd = () => {
     setIsAnimating(false);
@@ -76,33 +82,35 @@ function Navbar({
   };
 
   useEffect(() => {
-    console.log("homeClicked: ");
     if (shouldAnimateContactIcons) {
       setIsVisible(true); // Set the state to false
       // Add a condition to check if animation should occur
       const constantYPosition = 0;
       const viewportWidth = window.innerWidth;
 
-      console.log("viewportWidth: ", viewportWidth);
-
       iconRefs.forEach((ref, idx) => {
         if (ref.current) {
-          const targetX = viewportWidth / 6 - 125 + idx * -60;
+          const targetX =
+            viewportWidth / 6 -
+            125 +
+            idx * (isMobileDevice ? -100 : isTabletDevice ? -192 : -60) +
+            (isMobileDevice ? 140 : 0);
           gsap.fromTo(
             ref.current,
             {
               x: 40,
-              y: constantYPosition * idx +30,
+              y: constantYPosition * idx + 30,
             },
             {
               x: targetX,
-              y: constantYPosition * idx +100,
+              y: constantYPosition * idx + 100,
               duration: 2.2,
             }
           );
         }
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shouldAnimateContactIcons]);
 
   return (
@@ -173,7 +181,7 @@ function Navbar({
                 data-barba="link"
                 onClick={() => {
                   if (currentPage === "portfolio") {
-                    setHomeClicked(true);
+                    //setHomeClicked(true);
                   } else {
                     setIsAnimating(false);
                     setPortfolioClicked(true);
@@ -185,6 +193,10 @@ function Navbar({
                   textDecoration: "none",
                   //border: 1,
                   filter: currentPage === "about" ? "invert(1)" : "invert(0)",
+                  width: "50px",
+                  height: "50px",
+                  cursor: "pointer",
+                  "&:hover": { opacity: 0.7 },
                 }}
               >
                 {currentPage === "portfolio" ? (
@@ -197,15 +209,21 @@ function Navbar({
                       cursor: "pointer",
                     }}
                   />
+                ) : lightMode ? (
+                  <img
+                    src={sun}
+                    alt="sun"
+                    style={{ width: "40px", height: "40px" }}
+                  />
                 ) : (
-                  <PortfolioIcon
-                    style={{ width: "50px", height: "30px", cursor: "pointer" }}
+                  <img
+                    src={moon}
+                    alt="moon"
+                    style={{ width: "40px", height: "40px" }}
                   />
                 )}
               </Grid>
             )}
-
-           
 
             {/* Contact */}
             <Link
@@ -217,7 +235,6 @@ function Navbar({
                 position: "relative",
               }}
             >
-              
               {/* is mobile ? do not render instead render icons already displayed on bottom of screen */}
               <motion.div
                 animate={controls}
@@ -226,36 +243,36 @@ function Navbar({
                   //setIsVisible(true); // Delay the state change to true by 0.4 seconds
                 }}
               >
-                 {/* Contact Icons */}
-            {icons.map((icon, index) => (
-              <Grid
-                item
-                ref={iconRefs[index]}
-                sx={{
-                  position: "absolute",
-                  left: icon.x,
-                  top: icon.y,
-                  opacity: isVisible ? 1 : 0,
-                  zIndex: 1000,
-                }}
-              >
-                <icon.Component
-                  sx={{
-                    transform: "scale(1.2)",
-                    cursor: "pointer",
-                    zIndex: 1800,
-                    //on hover
-                    "&:hover": {
-                      color: "hotpink",
-                      transition: "color 0.5s",
-                    },
-                  }}
-                  onClick={() => {
-                    window.open(icon.link, "_blank");
-                  }}
-                />
-              </Grid>
-            ))}
+                {/* Contact Icons */}
+                {icons.map((icon, index) => (
+                  <Grid
+                    item
+                    ref={iconRefs[index]}
+                    sx={{
+                      position: "absolute",
+                      left: icon.x,
+                      top: icon.y,
+                      opacity: isVisible ? 1 : 0,
+                      zIndex: 10,
+                    }}
+                  >
+                    <icon.Component
+                      sx={{
+                        transform: isMobileDevice ? "scale(1.5)" : "scale(1.2)",
+                        cursor: "pointer",
+                        zIndex: 1800,
+                        //on hover
+                        "&:hover": {
+                          color: "hotpink",
+                          transition: "color 0.5s",
+                        },
+                      }}
+                      onClick={() => {
+                        window.open(icon.link, "_blank");
+                      }}
+                    />
+                  </Grid>
+                ))}
                 <ContactIcon
                   ref={contactRef}
                   data-barba="link"
@@ -287,7 +304,6 @@ function Navbar({
             </Link>
           </Grid>
         </Grid>
-        {/* </Grid> */}
       </motion.div>
     </>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, LegacyRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import barba from "@barba/core";
 import slideDown from "./utils/transitions/slideDown";
 import once from "./utils/transitions/once";
@@ -116,10 +116,8 @@ const App: React.FC = () => {
     }
   }, []);
 
-  console.log(loadingProgress, loading);
 
   useEffect(() => {
-    console.log(loadingProgress);
     if (!loading && loadingProgress === 100 && loadingScreenRef.current) {
       anime({
         targets: loadingScreenRef.current,

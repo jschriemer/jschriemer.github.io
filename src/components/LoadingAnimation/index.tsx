@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef } from "react";
 import { Box, Grid } from "@mui/material";
 import strive from "../../assets/images/strive.svg";
@@ -11,7 +12,6 @@ const LoadingScreen = ({
   useEffect(() => {
     const interval = setInterval(() => {
       setLoadingProgress((oldProgress) => {
-        console.log("LoadingScreen:useEffect ", oldProgress);
         if (oldProgress === 100) {
           clearInterval(interval);
           return 100;

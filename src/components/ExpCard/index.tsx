@@ -20,7 +20,7 @@ export const ExpCard = ({
       : exp.backgroundColor,
   });
 
-  const iconSpringProps = useSpring({
+  /* const iconSpringProps = useSpring({
     to: {
       height: isHovering ? "40px" : "30px",
       width: isHovering ? "40px" : "30px",
@@ -31,7 +31,7 @@ export const ExpCard = ({
     <svg width="100" height="100" viewBox="0 0 50 50">
       <rect width="25" height="25" fill="black" />
     </svg>
-  );
+  ); */
 
   const Triangle = ({ direction }: { direction: string }) => (
     <svg width="100" height="100" viewBox="0 0 50 50">
@@ -42,7 +42,6 @@ export const ExpCard = ({
     </svg>
   );
 
-  console.log(exp.title);
   return (
     <animated.div
       onMouseEnter={onMouseEnter}
