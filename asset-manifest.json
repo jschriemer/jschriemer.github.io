@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/static/css/main.ae841788.css",
+    "main.js": "/static/js/main.d5ab2254.js",
+    "static/media/header-background.png": "/static/media/header-background.7358d27253919ce187fe.png",
+    "static/media/header-forefront.png": "/static/media/header-forefront.18f3a53a7413a22a7c53.png",
+    "static/media/uvic.svg": "/static/media/uvic.505a6b4518948b638e70a3fc89b6541d.svg",
+    "static/media/strive.svg": "/static/media/strive.8c5d9a6e80a882b3cfc31eec173d7fe4.svg",
+    "static/media/portfolio.png": "/static/media/portfolio.4883ca1013e88b33b466.png",
+    "static/media/logo-border.svg": "/static/media/logo-border.920ffbe6bba49f361e01c131b9f4cdaf.svg",
+    "static/media/logo-filled.svg": "/static/media/logo-filled.1a4f6667d613f7dc17b6762f73ef545e.svg",
+    "static/media/contact.svg": "/static/media/contact.f27dd22b6528c96fca3efe8abdf171d3.svg",
+    "static/media/about.svg": "/static/media/about.f31a8ba20394f9c224f0d7c24a9fa2cb.svg",
+    "static/media/semios.svg": "/static/media/semios.a5be2c582cff4eae37e0228cfebc38cf.svg",
+    "static/media/moon.png": "/static/media/moon.9c6e298bed859373931f.png",
+    "static/media/sun.png": "/static/media/sun.792f36c4e8d6b87431c4.png",
+    "static/media/natureblocks.svg": "/static/media/natureblocks.f628f9bd960c55934e00b567a72d0ede.svg",
+    "static/media/basedinvic.svg": "/static/media/basedinvic.281257ce31b6f040fb1b2d300daa5343.svg",
+    "index.html": "/index.html",
+    "main.ae841788.css.map": "/static/css/main.ae841788.css.map",
+    "main.d5ab2254.js.map": "/static/js/main.d5ab2254.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ae841788.css",
+    "static/js/main.d5ab2254.js"
+  ]
+}

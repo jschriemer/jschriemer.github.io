@@ -46,6 +46,7 @@
       "not dead",
       "not op_mini all"
     ],
+    "homepage": "https://jschriemer.github.io/john-schriemer.ca",
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
