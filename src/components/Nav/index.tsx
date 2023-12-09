@@ -230,7 +230,7 @@ function Navbar({
               to={currentPage === "home" ? "/" : "/" + currentPage}
               data-barba="link"
               style={{
-                color: "#EDE5D8",
+                color: "white",
                 textDecoration: "none" /* border: 1 */,
                 position: "relative",
               }}
